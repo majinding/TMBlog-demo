@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-3.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<bean id="SpringRootContext" class="cn.majingjing.tmblog.view.util.spring.SpringRootContext"></bean>
+
+	<!-- 处理api接口的扫描工具 -->
+	<!--参数：pack 必须指定 -->
+	<!--参数：filter 若不指定，则使用defaultScanFilter -->
+	<!--参数：handler 若不指定，则按照hessian处理器执行 -->
+	<bean id="ApiScan" class="cn.majingjing.tmblog.view.util.api.scan.ApiScan" init-method="run">
+		<property name="pack" value="cn.majingjing.tmblog.api.interfaces.api" />
+		<property name="filter" ref="apiScanFilter" />
+		<!-- <property name="handler" ref="hessianInvocationHandler" /> -->
+	</bean>
+	<bean id="apiScanFilter"
+		class="cn.majingjing.core.api.scan.ApiScanFilter"></bean>
+	<!-- <bean id="restfulInvocationHandler"
+		class="RestfulInvocationHandler"></bean> -->
+	<!-- <bean id="hessianInvocationHandler"
+		class="HessianInvocationHandler"></bean> -->
+
+</beans>
